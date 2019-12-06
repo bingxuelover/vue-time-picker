@@ -12,7 +12,7 @@
   <body>
     <div id="lists">
       <el-container>
-        <el-main v-cloak>
+        <el-main v-cloak="v-cloak">
           <el-date-picker type="date" :editable="false" @change="dateChange" v-model="date" :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
           <el-time-picker @change="getStartTimeChange" v-model="start" :editable="false" :picker-options="timeSelectStart" value-format="HH:mm" format="HH:mm"></el-time-picker>
           <el-time-picker :disabled="timeEndStr" v-model="end" :editable="false" :picker-options="timeSelectEnd" value-format="HH:mm" format="HH:mm"></el-time-picker>
@@ -24,13 +24,12 @@
     <script>
       new Vue({
         el: '#lists',
-        created: function () {
-        },
+        created: function () {},
         data: {
-          date:'',
+          date: '',
           start: '',
           end: '',
-          timeEndStr:true,
+          timeEndStr: true,
           timeLists: [],
           pickerOptions: {
             disabledDate(time) {
@@ -45,25 +44,25 @@
           }
         },
         watch: {
-          timeLists(val){
+          timeLists(val) {
             const len = val.length;
             let timeSelectStart = [];
-            if(len!==0){
-              for(i in val){
+            if (len !== 0) {
+              for (i in val) {
                 const j = Number(i);
-                const x = j+1;
-                if(j<len-1){
-                  if(j==0){
-                    if(val[i][0].split(':')[0]!=='08'){
+                const x = j + 1;
+                if (j < len - 1) {
+                  if (j == 0) {
+                    if (val[i][0].split(':')[0] !== '08') {
                       timeSelectStart.push('08:30:00 - ' + val[i][0] + ':00')
                     }
                   }
-                  if(val[i][1].split(':')[0]!==val[x][0].split(':')[0]){
-                    timeSelectStart.push(val[i][1] + ':00 - '+ val[x][0] + ':00')
+                  if (val[i][1].split(':')[0] !== val[x][0].split(':')[0]) {
+                    timeSelectStart.push(val[i][1] + ':00 - ' + val[x][0] + ':00')
                   }
-                } else if (j==len-1){
-                  if(j==0){
-                    if(val[i][0].split(':')[0]!=='08'){
+                } else if (j == len - 1) {
+                  if (j == 0) {
+                    if (val[i][0].split(':')[0] !== '08') {
                       timeSelectStart.push('08:30:00 - ' + val[i][0] + ':00')
                     }
                   }
@@ -77,29 +76,36 @@
           }
         },
         methods: {
-          getStartTimeChange(time){
-            if (this.start!="") {
+          getStartTimeChange(time) {
+            if (this.start != "") {
               this.timeEndStr = false;
               let timeSelectEnd = [];
               let range = this.timeSelectStart.selectableRange;
-              for(r of range){
+              for (r of range) {
                 let rr = r.split(' - ');
                 let sss = rr[0].split(':');
                 let rrr = rr[1].split(':');
                 let lll = time.split(':');
-                if((lll[0]-sss[0])>=0&&(lll[0]-rrr[0]<=0)){
-                  timeSelectEnd = time+':00 - ' + rr[1]
+                if ((lll[0] - sss[0]) >= 0 && (lll[0] - rrr[0] <= 0)) {
+                  timeSelectEnd = time + ':00 - ' + rr[1]
                 }
               }
               this.timeSelectEnd.selectableRange = timeSelectEnd;
             }
-            this.end.value=""
+            this.end = ""
           },
-          dateChange(){
+          dateChange() {
             this.start = "";
             this.end = "";
             this.timeEndStr = true;
-            this.timeLists=[['09:00', '10:00'], ['13:00', '14:30']]
+            this.timeLists = [
+              [
+                '09:00', '10:00'
+              ],
+              [
+                '13:00', '14:30'
+              ]
+            ]
           }
         }
       })

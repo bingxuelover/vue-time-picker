@@ -12,26 +12,14 @@
   <body>
     <div id="lists">
       <el-container>
-        <el-main v-cloak>
-            <el-date-picker type="date" :editable="false" @change="dateChange" v-model="date" :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
-            <el-select v-model="start" @change="getStartTimeChange">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.disabled">
-              </el-option>
-            </el-select>
-            <el-select v-model="end" :disabled="timeEndStr">
-              <el-option
-                v-for="item in endOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.disabled">
-              </el-option>
-            </el-select>
+        <el-main v-cloak="v-cloak">
+          <el-date-picker type="date" :editable="false" @change="dateChange" v-model="date" :picker-options="pickerOptions" value-format="yyyy-MM-dd"></el-date-picker>
+          <el-select v-model="start" @change="getStartTimeChange">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+          </el-select>
+          <el-select v-model="end" :disabled="timeEndStr">
+            <el-option v-for="item in endOptions" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+          </el-select>
         </el-main>
       </el-container>
     </div>
@@ -40,13 +28,12 @@
     <script>
       new Vue({
         el: '#lists',
-        created: function () {
-        },
+        created: function () {},
         data: {
-          date:'',
+          date: '',
           start: '',
           end: '',
-          timeEndStr:true,
+          timeEndStr: true,
           timeLists: [],
           pickerOptions: {
             disabledDate(time) {
@@ -54,11 +41,12 @@
             }
           },
           selectableRange: [],
-          options:[{
+          options: [
+            {
               value: '08:30',
               label: '08:30',
               disabled: true
-            },{
+            }, {
               value: '09:00',
               label: '09:00',
               disabled: true
@@ -66,171 +54,203 @@
               value: '09:30',
               label: '09:30',
               disabled: true
-            },{
+            }, {
               value: '10:00',
               label: '10:00',
               disabled: true
-            },{
+            }, {
               value: '10:30',
               label: '10:30',
               disabled: true
-            },{
+            }, {
               value: '11:00',
               label: '11:00',
               disabled: true
-            },{
+            }, {
               value: '11:30',
               label: '11:30',
               disabled: true
-            },{
+            }, {
               value: '12:00',
               label: '12:00',
               disabled: true
-            },{
+            }, {
               value: '12:30',
               label: '12:30',
               disabled: true
-            },{
+            }, {
               value: '13:00',
               label: '13:00',
               disabled: true
-            },{
+            }, {
               value: '13:30',
               label: '13:30',
               disabled: true
-            },{
+            }, {
               value: '14:00',
               label: '14:00',
               disabled: true
-            },{
+            }, {
               value: '14:30',
               label: '14:30',
               disabled: true
-            },{
+            }, {
               value: '15:00',
               label: '15:00',
               disabled: true
-            },{
+            }, {
               value: '15:30',
               label: '15:30',
               disabled: true
-            },{
+            }, {
               value: '16:00',
               label: '16:00',
               disabled: true
-            },{
+            }, {
               value: '16:30',
               label: '16:30',
               disabled: true
-            },{
+            }, {
               value: '17:00',
               label: '17:00',
               disabled: true
-            },{
+            }, {
               value: '17:30',
               label: '17:30',
               disabled: true
-            },{
+            }, {
               value: '18:00',
               label: '18:00',
               disabled: true
             }
           ],
-          optionValue:'',
-          endOptions:[]
+          optionValue: '',
+          endOptions: []
         },
         watch: {
-          timeLists(val){
+          timeLists(val) {
             const len = val.length;
             let timeSelectStart = [];
-            if(len!==0){
-              for(i in val){
+            if (len !== 0) {
+              for (i in val) {
                 const j = Number(i);
-                const x = j+1;
-                if(j<len-1){
-                  if(j==0){
-                    if(val[i][0].split(':')[0]!=='08'){
-                      timeSelectStart.push(['08:30',val[i][0]])
+                const x = j + 1;
+                if (j < len - 1) {
+                  if (j == 0) {
+                    if (val[i][0].split(':')[0] !== '08') {
+                      timeSelectStart.push([
+                        '08:30', val[i][0]
+                      ])
                     }
-                    if(val[i][1].split(':')[0]!==val[x][0].split(':')[0]){
-                      timeSelectStart.push([val[i][1], val[x][0]])
-                    } else if(val[i][1].split(':')[0]==val[x][0].split(':')[0]){
-                      if(val[i][1].split(':')[1]!==val[x][0].split(':')[1]){
-                        timeSelectStart.push([val[i][1], val[x][0]])
+                    if (val[i][1].split(':')[0] !== val[x][0].split(':')[0]) {
+                      timeSelectStart.push([
+                        val[i][1],
+                        val[x][0]
+                      ])
+                    } else if (val[i][1].split(':')[0] == val[x][0].split(':')[0]) {
+                      if (val[i][1].split(':')[1] !== val[x][0].split(':')[1]) {
+                        timeSelectStart.push([
+                          val[i][1],
+                          val[x][0]
+                        ])
                       }
                     }
                   } else {
-                    if(val[i][1].split(':')[0]!==val[x][0].split(':')[0]){
-                      timeSelectStart.push([val[i][1], val[x][0]])
-                    } else if(val[i][1].split(':')[0]==val[x][0].split(':')[0]){
-                      if(val[i][1].split(':')[1]!==val[x][0].split(':')[1]){
-                        timeSelectStart.push([val[i][1], val[x][0]])
+                    if (val[i][1].split(':')[0] !== val[x][0].split(':')[0]) {
+                      timeSelectStart.push([
+                        val[i][1],
+                        val[x][0]
+                      ])
+                    } else if (val[i][1].split(':')[0] == val[x][0].split(':')[0]) {
+                      if (val[i][1].split(':')[1] !== val[x][0].split(':')[1]) {
+                        timeSelectStart.push([
+                          val[i][1],
+                          val[x][0]
+                        ])
                       }
                     }
                   }
-                } else if (j==len-1){
-                  if(j==0){
-                    if(val[i][0].split(':')[0]!=='08'){
-                      timeSelectStart.push(['08:30', val[i][0]])
+                } else if (j == len - 1) {
+                  if (j == 0) {
+                    if (val[i][0].split(':')[0] !== '08') {
+                      timeSelectStart.push([
+                        '08:30', val[i][0]
+                      ])
                     }
-                    if(val[i][1].split(':')[0]!=='18'){
-                      timeSelectStart.push([val[i][1], '18:00'])
+                    if (val[i][1].split(':')[0] !== '18') {
+                      timeSelectStart.push([
+                        val[i][1],
+                        '18:00'
+                      ])
                     }
                   } else {
-                    if(val[i][1].split(':')[0]!=='18'){
-                      timeSelectStart.push([val[i][1], '18:00'])
+                    if (val[i][1].split(':')[0] !== '18') {
+                      timeSelectStart.push([
+                        val[i][1],
+                        '18:00'
+                      ])
                     }
                   }
                 }
               }
               this.selectableRange = timeSelectStart;
             } else {
-              this.selectableRange = [['08:30', '18:00']]
+              this.selectableRange = [
+                ['08:30', '18:00']
+              ]
             }
           },
-          selectableRange(val){
+          selectableRange(val) {
             let options = this.options;
             const len = options.length;
-            for(time of val){
+            for (time of val) {
               const timeLine = time;
               const timeStart = timeLine[0];
               const timeEnd = timeLine[1];
-              for(i in options){
-                if(options[i].value==timeStart){
+              for (i in options) {
+                if (options[i].value == timeStart) {
                   options[i].start = true;
                   options[i].disabled = false;
                   let nowValue = options[i].value;
                   let j = Number(i);
                   do {
-                    j+=1;
+                    j += 1;
                     nowValue = options[j].value
                     options[j].disabled = false;
-                    if(nowValue == timeEnd){
+                    if (nowValue == timeEnd) {
                       options[j].end = true;
                     }
-                  } while(nowValue!==timeEnd && j<len-1)
+                  } while (nowValue !== timeEnd && j < len - 1)
                 }
               }
               const dateNow = new Date();
               const year = dateNow.getFullYear();
-              let month = dateNow.getMonth()+1;
-              month = month>9 ? month : '0'+ month;
+              let month = dateNow.getMonth() + 1;
+              month = month > 9
+                ? month
+                : '0' + month;
               let day = dateNow.getDate();
-              day = day>9 ? day : '0'+day;
-              const date = year+'-'+month+'-'+day;
-              if(this.date==date){
+              day = day > 9
+                ? day
+                : '0' + day;
+              const date = year + '-' + month + '-' + day;
+              if (this.date == date) {
                 let hours = dateNow.getHours();
-                hours = hours>9 ? hours : '0'+ hours;
+                hours = hours > 9
+                  ? hours
+                  : '0' + hours;
                 let minutes = dateNow.getMinutes();
-                minutes = minutes>9 ? minutes : '0'+ minutes;
-                for(opt of options){
+                minutes = minutes > 9
+                  ? minutes
+                  : '0' + minutes;
+                for (opt of options) {
                   const hour = opt.value.split(":")[0];
                   const minites = opt.value.split(":")[1];
-                  if(hour<hours){
-                    opt.disabled=true;
-                  } else if (hour==hours) {
-                    if(minites<minutes){
-                      opt.disabled=true;
+                  if (hour < hours) {
+                    opt.disabled = true;
+                  } else if (hour == hours) {
+                    if (minites < minutes) {
+                      opt.disabled = true;
                     }
                   }
                 }
@@ -240,34 +260,41 @@
           }
         },
         methods: {
-          getStartTimeChange(time){
-            if (this.start!="") {
+          getStartTimeChange(time) {
+            if (this.start != "") {
               this.timeEndStr = false;
               let timeSelectEnd = [];
               let options = this.options;
               let endOptions = [];
               let x = 0;
-              for(r in options){
-                if(options[r].value == time){
+              for (r in options) {
+                if (options[r].value == time) {
                   x = Number(r);
                   endOptions.push(options[x])
-                  if(options[x].end!==true){
-                    do{
-                      x+=1;
+                  if (options[x].end !== true) {
+                    do {
+                      x += 1;
                       endOptions.push(options[x])
-                    }while(options[x].disabled==false&&options[x].end!==true)
+                    } while (options[x].disabled == false && options[x].end !== true)
                   }
                 }
               }
               this.endOptions = endOptions;
             }
-            this.end.value=""
+            this.end = ""
           },
-          dateChange(){
+          dateChange() {
             this.start = "";
             this.end = "";
             this.timeEndStr = true;
-            this.timeLists=[['09:00', '10:00'], ['13:00', '14:30']]
+            this.timeLists = [
+              [
+                '09:00', '10:00'
+              ],
+              [
+                '13:00', '14:30'
+              ]
+            ]
           }
         }
       })
