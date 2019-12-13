@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <TimePicker
+    <time-picker
       :getOptions="options"
       :timeOccupied="timeOccupied"
       :timeRange="timeRange"
@@ -8,7 +8,7 @@
       :defaultEnd="defaultEnd"
       @change-time="changeTime"
     />
-    <TimeRangePicker
+    <time-range-picker
       :timeOccupied="timeOccupied"
       :timeRange="['08:30:00 - 18:00:00']"
       defaultStart="08:00:00"
@@ -19,16 +19,10 @@
 </template>
 
 <script>
-import TimePicker from "./components/TimePicker.vue";
-import TimeRangePicker from "./components/TimeRangePicker.vue";
 import options from "./json/options.json";
 
 export default {
   name: "app",
-  components: {
-    TimePicker,
-    TimeRangePicker
-  },
   data() {
     /***
     options 全部的时间点
