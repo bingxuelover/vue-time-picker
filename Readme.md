@@ -1,4 +1,4 @@
-# 时间和分钟选择的vue功能
+# 时间和分钟选择的 vue 功能
 
 ## 技术栈
 
@@ -38,3 +38,21 @@ vue.js+element-ui
 - App.vue 是使用组件的例子
 - index.js 注册组件的方法
 - components 中是两个组件
+
+## Project setup
+
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+
+```
+yarn build
+```
